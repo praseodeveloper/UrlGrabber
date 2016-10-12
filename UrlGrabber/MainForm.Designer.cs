@@ -181,9 +181,9 @@
             this.preRequisiteLabel.AutoSize = true;
             this.preRequisiteLabel.Location = new System.Drawing.Point(26, 69);
             this.preRequisiteLabel.Name = "preRequisiteLabel";
-            this.preRequisiteLabel.Size = new System.Drawing.Size(250, 13);
+            this.preRequisiteLabel.Size = new System.Drawing.Size(255, 13);
             this.preRequisiteLabel.TabIndex = 12;
-            this.preRequisiteLabel.Text = "Ensure Pearl Crescent page saver plugin is installed";
+            this.preRequisiteLabel.Text = "Ensure Pearl Crescent page saver add-on is installed";
             // 
             // pluginLinkLabel
             // 
@@ -194,6 +194,7 @@
             this.pluginLinkLabel.TabIndex = 13;
             this.pluginLinkLabel.TabStop = true;
             this.pluginLinkLabel.Text = "https://addons.mozilla.org/en-US/firefox/addon/pagesaver/";
+            this.pluginLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.pluginLinkLabel_LinkClicked);
             // 
             // notifyIcon1
             // 

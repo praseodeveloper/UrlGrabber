@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Windows.Forms;
-using System.IO;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace UrlGrabber
 {
@@ -24,10 +24,14 @@ namespace UrlGrabber
         {
             InitializeComponent();
 
+            notifyIcon1.Visible = false;
             p_viewModel = new UrlGrabSettingsViewModel();
             p_threadStart = new ThreadStart(GrabUrl);
             p_grabberThread = new Thread(p_threadStart);
             FormClosing += UrlGrabberSettingsForm_FormClosing;
+
+            pluginLinkLabel.Links.Remove(pluginLinkLabel.Links[0]);
+            pluginLinkLabel.Links.Add(0, pluginLinkLabel.Text.Length, "https://addons.mozilla.org/en-US/firefox/addon/pagesaver/");
         }
 
         #region Controls event handlers.
@@ -66,6 +70,12 @@ namespace UrlGrabber
             }
         }
 
+        /// <summary>
+        /// Start/Stop button click event handler. 
+        /// Invoke grabber thread and update UI state.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void startGrabButton_Click(object sender, EventArgs e)
         {
             if (p_isOperationStarted && p_grabberThread.IsAlive)
@@ -96,6 +106,12 @@ namespace UrlGrabber
             }
         }
 
+        /// <summary>
+        /// Text changed event handler for URL text box.
+        /// Storing the URL in view model.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void urlTextBox_TextChanged(object sender, EventArgs e)
         {
             var source = sender as TextBox;
@@ -103,6 +119,32 @@ namespace UrlGrabber
             {
                 p_viewModel.Url = source.Text;
             }
+        }
+
+        /// <summary>
+        ///  Click event handler for notify icon.
+        ///  Need to show form in normal mode.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void notifyIcon1_Click(object sender, EventArgs e)
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+            this.ShowInTaskbar = true;
+            notifyIcon1.Visible = false;
+        }
+
+        /// <summary>
+        /// Click event handler for link label.
+        /// Open the add-on URL in default browser.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void pluginLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ProcessStartInfo sInfo = new ProcessStartInfo(e.Link.LinkData.ToString());
+            Process.Start(sInfo);
         }
         #endregion
 
@@ -128,6 +170,9 @@ namespace UrlGrabber
             }
         }
 
+        /// <summary>
+        /// Code which actually take screenshots using the firefox add-on indefinitely.
+        /// </summary>
         private void GrabUrl()
         {
             while (true)
@@ -150,7 +195,7 @@ namespace UrlGrabber
                     if (writer.BaseStream.CanWrite)
                     {
                         writer.WriteLine(string.Format("cd /d \"{0}\"", Path.GetDirectoryName(p_viewModel.FirefoxPath)));
-                        writer.WriteLine(string.Format("firefox -saveimage \"{0}\" -saveas \"{1}\"", p_viewModel.Url, outputFilename));
+                        writer.WriteLine(string.Format("firefox -saveimage \"{0}\" -saveas \"{1}\" -width 640 -height 480 -saveoptions element=octable", p_viewModel.Url, outputFilename));
                     }
                 }
 
@@ -174,6 +219,12 @@ namespace UrlGrabber
             }
         }
 
+        /// <summary>
+        /// Form resize event handler. 
+        /// Need to minimize to system tray as notify icon when minimized.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UrlGrabberSettingsForm_Resize(object sender, EventArgs e)
         {
             if (FormWindowState.Minimized == this.WindowState)
@@ -184,13 +235,5 @@ namespace UrlGrabber
             }
         }
         #endregion
-
-        private void notifyIcon1_Click(object sender, EventArgs e)
-        {
-            this.Show();
-            this.WindowState = FormWindowState.Normal;
-            this.ShowInTaskbar = true;
-            notifyIcon1.Visible = false;
-        }
     }
 }
