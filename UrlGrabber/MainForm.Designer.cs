@@ -43,9 +43,6 @@
             this.outputPathFindButton = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.startGrabButton = new System.Windows.Forms.Button();
-            this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
-            this.rectangleShape2 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
-            this.rectangleShape1 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.preRequisiteLabel = new System.Windows.Forms.Label();
             this.pluginLinkLabel = new System.Windows.Forms.LinkLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
@@ -152,30 +149,6 @@
             this.startGrabButton.UseVisualStyleBackColor = true;
             this.startGrabButton.Click += new System.EventHandler(this.startGrabButton_Click);
             // 
-            // shapeContainer1
-            // 
-            this.shapeContainer1.Location = new System.Drawing.Point(0, 0);
-            this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
-            this.shapeContainer1.Name = "shapeContainer1";
-            this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
-            this.rectangleShape2,
-            this.rectangleShape1});
-            this.shapeContainer1.Size = new System.Drawing.Size(498, 322);
-            this.shapeContainer1.TabIndex = 11;
-            this.shapeContainer1.TabStop = false;
-            // 
-            // rectangleShape2
-            // 
-            this.rectangleShape2.Location = new System.Drawing.Point(17, 122);
-            this.rectangleShape2.Name = "rectangleShape2";
-            this.rectangleShape2.Size = new System.Drawing.Size(462, 152);
-            // 
-            // rectangleShape1
-            // 
-            this.rectangleShape1.Location = new System.Drawing.Point(17, 13);
-            this.rectangleShape1.Name = "rectangleShape1";
-            this.rectangleShape1.Size = new System.Drawing.Size(462, 91);
-            // 
             // preRequisiteLabel
             // 
             this.preRequisiteLabel.AutoSize = true;
@@ -224,7 +197,6 @@
             this.Controls.Add(this.chooseLocationButton);
             this.Controls.Add(this.firefoxLocationTextBox);
             this.Controls.Add(this.pathRequestLabel);
-            this.Controls.Add(this.shapeContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
@@ -253,9 +225,6 @@
         private System.Windows.Forms.Button outputPathFindButton;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Button startGrabButton;
-        private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
-        private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape2;
-        private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape1;
         private System.Windows.Forms.Label preRequisiteLabel;
         private System.Windows.Forms.LinkLabel pluginLinkLabel;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
